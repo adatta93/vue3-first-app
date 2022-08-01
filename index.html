@@ -1,0 +1,84 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 First App</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+    <style>
+      .box {
+        padding: 100px 0;
+        width: 400px;
+        text-align: center;
+        background-color: #ddd;
+        margin: 20px;
+        display: inline-block;
+      }
+      .fav {
+        background-color: yellow;
+        padding: 20px;
+        margin-bottom: 10px;
+      }
+      .noFav {
+        background-color: cyan;
+        padding: 20px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, Vue 3</h1>
+
+    <div id="root">
+      <div>
+        <h2>Name: {{name}}</h2>
+        Counter: {{counter}}
+        <button v-on:click="counter++">Increase</button>
+        <button @click="counter--">Decrease</button>
+        <button @click="changeName">Change Name</button>
+        <button @click="addLastName(name)">Last Name</button>
+      </div>
+      <div>
+        <h4 v-if="showText">Some Text</h4>
+        <button @click="showText=!showText">
+          <span v-if="!showText">Show Text</span>
+          <span v-else>Hide Text</span>
+        </button>
+        <h2 v-show="!showText">Text is hidden</h2>
+      </div>
+      <div>
+        <h2>All Books:</h2>
+		<h5>Click to mark as favourite</h5>
+        <ul>
+          <li
+            v-for="book in books"
+            @click="toggleFavBook(book)"
+            :class="{fav: book.isFav, noFav: !book.isFav}"
+          >
+            <span><b>{{book.title}}</b> - {{book.author}}</span>
+          </li>
+        </ul>
+        Favourite Books (computed):
+        <ul>
+          <li
+            v-for="book in filteredBooks"
+            @click="toggleFavBook(book)"
+            :class="{fav: book.isFav, noFav: !book.isFav}"
+          >
+            <span><b>{{book.title}}</b> - {{book.author}}</span>
+          </li>
+        </ul>
+      </div>
+      Credit goes to - <a :href="url">Net Ninja</a>
+      <br />
+      <!-- Mouse Events -->
+      <div class="box" @mouseover="handleEvent($event, 5)">
+        mouseover (enter)
+      </div>
+      <div class="box" @mouseleave="handleEvent">mouseleave</div>
+      <div class="box" @dblclick="handleEvent($event, 10)">double click</div>
+      <div class="box" @mousemove="handleMouseMove">X:{{x}}, Y:{{y}}</div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
